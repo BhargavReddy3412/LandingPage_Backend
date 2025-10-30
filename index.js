@@ -66,7 +66,8 @@ app.get('/',(req,res)=>{
 app.post("/utm", async (req, res) => {
      try {
         const { utm_source, utm_medium, utm_campaign, utm_term, utm_content } = req.body;
-        
+        const ipAddress =req.headers['x-forwarded-for']?.split(',')[0] ||req.socket?.remoteAddress ||'IP not available';
+       
         const timestamp = new Date().toISOString()
         const response = await axios.post(GOOGLE_SHEET_URL, {
             utm_source,
@@ -75,6 +76,7 @@ app.post("/utm", async (req, res) => {
             utm_term,
             utm_content,
             timestamp,
+            ipAddress,
         });
 
         res.json({ success: true, message: "UTM data sent to Google Sheets", googleResponse: response.data });
@@ -83,7 +85,6 @@ app.post("/utm", async (req, res) => {
         res.status(500).json({ success: false, message: "Error sending data to Google Sheets" });
     }
 });
-
 
 
 const Google_Sheet="https://script.google.com/macros/s/AKfycby78AWefgKqbJfnan_1qstVod7q3lP0uWImfNYFdev7Q32KxNlP_OHT8oNs_iVlYEUXEg/exec"
@@ -106,14 +107,3 @@ app.post("/track-Expodite", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
- 
-
-
-
-
-
-
-
-
-
