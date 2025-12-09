@@ -49,7 +49,7 @@ app.post('/send-email', (req, res) => {
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.error(error);
-      res.status(500).send('Error sending email');
+      res.status(500).send('Error sending Email');
     } else {
       console.log('Email sent: ' + info.response);
       res.send('success');
@@ -107,3 +107,4 @@ app.post("/track-Expodite", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
