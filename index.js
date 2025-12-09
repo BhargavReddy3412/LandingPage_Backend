@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'info@expodite.in', 
-    pass: 'uvka smmq jogm ozwe',
+    pass: 'udvf gqcq nckw ajmz',
   },
 });
 
@@ -107,4 +107,5 @@ app.post("/track-Expodite", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
 
