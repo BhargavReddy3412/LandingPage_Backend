@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'info@expodite.in', 
-    pass: 'udvf gqcq nckw ajmz',
+    pass: 'wscn vbmq wsxo wpuo',
   },
 });
 
