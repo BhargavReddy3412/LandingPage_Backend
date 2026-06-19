@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const cors = require('cors');
 const path = require('path');
 const axios=require('axios');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,9 +22,18 @@ const transporter = nodemailer.createTransport({
     pass: 'wscn vbmq wsxo wpuo',
   },
 });
+const contactFormLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,
+  message: {
+    success: false,
+    message: 'Too many form submissions. Please try again later.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
-
-app.post('/send-email', (req, res) => {
+app.post('/send-email',contactFormLimiter, (req, res) => {
   const { firstName, phone, email, company, additionalInfo } = req.body;
 
     const ipAddress =
